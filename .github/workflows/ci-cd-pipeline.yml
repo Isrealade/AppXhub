@@ -18,7 +18,14 @@ jobs:
               uses: actions/setup-node@v4
               with:
                 node-version: 20.x
-            
+            - name: Cache node modules
+              uses: actions/cache@v4
+              with:
+                path: ./app/node_modules
+                key: ${{ runner.os }}-node-${{ hashFiles('app/package-lock.json') }}
+                restore-keys: |
+                    ${{ runner.os }}-node-
+
             - name: Install Dependencies
               working-directory: ./app/
               run: npm install
@@ -26,11 +33,11 @@ jobs:
             - name: Run Unit Test
               working-directory: ./app/
               run: npm test
-              with:
-                REACT_APP_API_URL:${{ vars.REACT_APP_API_URL }}
-                REACT_APP_ENVIRONMENT:${{ vars.REACT_APP_ENVIRONMENT }}
-                REACT_APP_USERNAME:${{ vars.REACT_APP_USERNAME }}
-                REACT_APP_PASSWORD:${{ secrets.REACT_APP_PASSWORD }}
+              env:
+                REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
+                REACT_APP_ENVIRONMENT: ${{ vars.REACT_APP_ENVIRONMENT }}
+                REACT_APP_USERNAME: ${{ vars.REACT_APP_USERNAME }}
+                REACT_APP_PASSWORD: ${{ secrets.REACT_APP_PASSWORD }}
 
     Docker-build-and-push:
         needs: Testing
