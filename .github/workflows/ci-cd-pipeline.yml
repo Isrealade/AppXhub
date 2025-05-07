@@ -21,13 +21,14 @@ jobs:
             
             - name: Install Dependencies
               working-directory: ./app/
-              run: npm ci
+              run: npm install
 
             - name: Run Unit Test
               working-directory: ./app/
               run: npm run test
 
     Docker-build-and-push:
+        needs: Testing
         runs-on: ubuntu-latest
         steps:
             - name: Login to Docker Hub
@@ -42,5 +43,6 @@ jobs:
             - name: Build and push
               uses: docker/build-push-action@v6
               with:
+                context: ./app/
                 push: true
                 tags: isrealade/appxhub:latest
