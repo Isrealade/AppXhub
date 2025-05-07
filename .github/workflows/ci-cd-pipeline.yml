@@ -25,7 +25,7 @@ jobs:
 
             - name: Run Unit Test
               working-directory: ./app/
-              run: npm run test
+              run: npm test
 
     Docker-build-and-push:
         needs: Testing
