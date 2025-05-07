@@ -26,6 +26,11 @@ jobs:
             - name: Run Unit Test
               working-directory: ./app/
               run: npm test
+              with:
+                REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }}  http://localhost:3000
+                REACT_APP_ENVIRONMENT=${{ vars.REACT_APP_ENVIRONMENT }}  development
+                REACT_APP_USERNAME=${{ vars.REACT_APP_USERNAME }} dev_user
+                REACT_APP_PASSWORD=${{ secrets.REACT_APP_PASSWORD }} dev_pass
 
     Docker-build-and-push:
         needs: Testing
