@@ -27,10 +27,10 @@ jobs:
               working-directory: ./app/
               run: npm test
               with:
-                REACT_APP_API_URL=${{ vars.REACT_APP_API_URL }}
-                REACT_APP_ENVIRONMENT=${{ vars.REACT_APP_ENVIRONMENT }}
-                REACT_APP_USERNAME=${{ vars.REACT_APP_USERNAME }}
-                REACT_APP_PASSWORD=${{ secrets.REACT_APP_PASSWORD }}
+                REACT_APP_API_URL:${{ vars.REACT_APP_API_URL }}
+                REACT_APP_ENVIRONMENT:${{ vars.REACT_APP_ENVIRONMENT }}
+                REACT_APP_USERNAME:${{ vars.REACT_APP_USERNAME }}
+                REACT_APP_PASSWORD:${{ secrets.REACT_APP_PASSWORD }}
 
     Docker-build-and-push:
         needs: Testing
